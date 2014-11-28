@@ -11,10 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Character_Races.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Terrain.cpp" />
+    <ClCompile Include="src\Textures.cpp" />
+    <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Character_Races.h" />
+    <ClInclude Include="include\Textures.h" />
+    <ClInclude Include="include\Vec2.h" />
+    <ClInclude Include="include\Window.h" />
     <ClInclude Include="src\Terrain.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -51,7 +58,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>src/sdl;/include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/sdl;./include;</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
