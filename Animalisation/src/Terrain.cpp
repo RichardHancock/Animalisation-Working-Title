@@ -17,25 +17,28 @@ terrain::terrain(int width, int height)
 	// resize vector to world size
 	m_tiles.resize(m_height * m_width);
 
-	for (size_t i; i < m_tiles.size(); ++i)
+	for (size_t i = 0; i < m_tiles.size(); ++i)
 	{
 		// random assign terrain type to tiles
 		m_tiles[i].type(std::rand() % 4);
 	}
 
-	for (size_t y; y < m_height; ++y)
+	for (size_t y = 0; y < m_height; ++y)
 	{
-		for (size_t x; x < m_width; ++x)
+		for (size_t x = 0; x < m_width; ++x)
 		{
+			// compute a index 
+			int index = y * m_height + x;
+
 			// random assign terrain type to tiles
-			m_tiles[i].tileCenter
+			m_tiles[index].tileCenter(x, y);
 		}
 	}
 }
 terrain::~terrain()
 {
 	// clear vector
-	m_tiles.erase();
+	m_tiles.clear();
 }
 void terrain::draw()
 {
