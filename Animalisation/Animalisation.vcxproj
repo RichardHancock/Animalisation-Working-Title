@@ -15,6 +15,8 @@
     <ClCompile Include="src\Character_Races.cpp" />
     <ClCompile Include="src\imageManager.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\menu.cpp" />
+    <ClCompile Include="src\menuKey.cpp" />
     <ClCompile Include="src\Terrain.cpp" />
     <ClCompile Include="src\Textures.cpp" />
     <ClCompile Include="src\Window.cpp" />
@@ -23,6 +25,8 @@
     <ClInclude Include="include\AI.h" />
     <ClInclude Include="include\Character_Races.h" />
     <ClInclude Include="include\inputManager.h" />
+    <ClInclude Include="include\menu.h" />
+    <ClInclude Include="include\menuKey.h" />
     <ClInclude Include="include\Terrain.h" />
     <ClInclude Include="include\Textures.h" />
     <ClInclude Include="include\Vec2.h" />
