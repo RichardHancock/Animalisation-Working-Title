@@ -2,6 +2,7 @@
 #include "Textures.h"
 #include "Window.h"
 #include "Vec2.h"
+#include <time.h>
 
 // the type of terrain each tile is
 enum terrainType
