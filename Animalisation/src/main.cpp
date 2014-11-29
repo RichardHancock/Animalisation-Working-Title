@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "Textures.h"
 #include "Terrain.h"
+#include "inputManager.h"
 
 //Constants
 const int WIN_WIDTH = 640;
@@ -9,11 +10,10 @@ const int WIN_HEIGHT = 480;
 
 //Globals
 Window* window = new Window("Animalisation", WIN_WIDTH, WIN_HEIGHT);
+InputManager* in = new InputManager();
 
 //Function Prototypes
 int main();
-
-
 
 int main(int argc, char **argv)
 {
@@ -22,8 +22,10 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	unsigned int last = SDL_GetTicks();
+
 	// create world
-	terrain ter(10, 10);
+	terrain ter(25, 25);
 	// load textures
 	Textures text(4);
 	text.LoadPNG("images/grass.png", window->getRenderer(), 0);
@@ -51,17 +53,35 @@ int main(int argc, char **argv)
 
 	bool quit = false;
 	SDL_Event e;
+	SDL_Rect a;
+	a.x = 0.0f;
+	a.y = 0.0f;
 	while (!quit)
 	{
-		while (SDL_PollEvent(&e))
-		{
-			//Escape Key
-			if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-			{
-				quit = true;
-			}
-		}
+		// DT
+		unsigned int current = SDL_GetTicks();
+		float dt = (float)(current - last) / 1000.0f;
+		last = current;
 
+		quit = in->updateInput();
+
+		// camera movement
+		if(in->getForwards())
+			a.y -= dt * 1000.0f;
+		else
+			a.y = a.y;
+		if (in->getBackwards())
+			a.y += dt * 1000.0f;
+		else
+			a.y = a.y;
+		if (in->getRight())
+			a.x += dt * 1000.0f;
+		else
+			a.x = a.x;
+		if (in->getLeft())
+			a.x -= dt * 1000.0f;
+		else
+			a.x = a.x;
 
 		//Render
 		SDL_SetRenderDrawColor(window->getRenderer(), 0x01, 0x01, 0x01, 0xFF);
@@ -72,7 +92,9 @@ int main(int argc, char **argv)
 		// actual draw
 		for (int i = 0; i < ter.sizeOf(); ++i)
 		{
-			SDL_Rect b = ter.getRect(i);
+			SDL_Rect  b = ter.getRect(i);
+			b.x -= a.x;
+			b.y -= a.y;
       b.w = 150;
 			b.h = 150;
 			SDL_RenderCopy(window->getRenderer(), text.getTexture(ter.getTileType(i)), NULL, &b);
