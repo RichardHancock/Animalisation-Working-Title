@@ -2,7 +2,7 @@
 #include "Window.h"
 #include "Textures.h"
 #include "inputManager.h"
-
+#include "Terrain.h"
 //Constants
 const int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
@@ -23,14 +23,18 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	Textures text(1);
-	text.LoadPNG("images/test.png", window->getRenderer(), 0);
+	terrain ter(5, 5);
 
-	SDL_Rect b;
-	b.x = 200;
-	b.y = 200;
-	b.w = 200;
-	b.h = 200;
+	Textures text(2);
+	text.LoadPNG("images/test.png", window->getRenderer(), 0);
+	text.LoadPNG("images/HexT.png", window->getRenderer(), 1);
+
+	for (int i = 0; i < ter.sizeOf(); ++i)
+	{
+		ter.bindTileTexture(text.getTexture(1), i);
+	}
+
+
 
 	bool quit = false;
 	SDL_Event e;
@@ -43,8 +47,16 @@ int main(int argc, char **argv)
 		SDL_SetRenderDrawColor(window->getRenderer(), 0x01, 0xF0, 0xEE, 0xFF);
 		SDL_RenderClear(window->getRenderer());
 
-		SDL_QueryTexture(text.getTexture(0), NULL, NULL, &b.x, &b.y);
-		SDL_RenderCopy(window->getRenderer(), text.getTexture(0), NULL, &b);
+		ter.draw();
+		//SDL_QueryTexture(text.getTexture(1), NULL, NULL, &b.x, &b.y);
+		for (int i = 0; i < ter.sizeOf(); ++i)
+		{
+			SDL_Rect b = ter.getRect(i);
+      b.w = 150;
+			b.h = 150;
+			SDL_RenderCopy(window->getRenderer(), text.getTexture(1), NULL, &b);
+		}
+		
 
 		SDL_RenderPresent(window->getRenderer());
 		

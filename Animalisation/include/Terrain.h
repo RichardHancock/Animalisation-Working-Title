@@ -21,6 +21,9 @@ public:
 	///\brief Destr
 	~tile();
 
+
+	void draw();
+
 	///\brief set the texture for the tile
 	///\prama SDL_Texture* texture
 	inline void bindTexture(SDL_Texture* tileTexture)
@@ -140,8 +143,22 @@ public:
 		m_tiles[tileIndex].type(terrainType);
 	}
 
+	inline void bindTileTexture(SDL_Texture* tileTexture, int index)
+	{
+		m_tiles[index].bindTexture(tileTexture);
+	}
+
+	inline SDL_Rect getRect(int index)
+	{
+		return m_rect[index];
+	}
+	inline int sizeOf()
+	{
+		return m_tiles.size();
+	}
 private:
 	int m_height; ///< world height
 	int m_width; ///< world width
 	std::vector<tile> m_tiles; ///< vector of tiles
+	std::vector<SDL_Rect> m_rect; ///< texture rect
 };
