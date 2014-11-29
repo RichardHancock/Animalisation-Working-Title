@@ -1,9 +1,10 @@
 #include <iostream>
 #include "Window.h"
-#include "Textures.h"
+#include "menu.h"
 #include "inputManager.h"
 #include "Terrain.h"
-#include "menu.h"
+#include "Textures.h"
+
 //Constants
 const int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
@@ -16,8 +17,6 @@ Menu* menu = new Menu(window);
 //Function Prototypes
 int main();
 
-
-
 int main(int argc, char **argv)
 {
 	if (!window)
@@ -25,15 +24,31 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	terrain ter(5, 5);
+	unsigned int last = SDL_GetTicks();
 
-	Textures text(2);
-	text.LoadPNG("images/test.png", window->getRenderer(), 0);
-	text.LoadPNG("images/HexT.png", window->getRenderer(), 1);
+	// create world
+	terrain ter(25, 25);
+	// load textures
+	Textures text(4);
+	text.LoadPNG("images/grass.png", window->getRenderer(), 0);
+	text.LoadPNG("images/town.png", window->getRenderer(), 1);
+	text.LoadPNG("images/hill.png", window->getRenderer(), 2);
+	text.LoadPNG("images/water.png", window->getRenderer(), 3);
 
+	// bind textures
 	for (int i = 0; i < ter.sizeOf(); ++i)
 	{
-		ter.bindTileTexture(text.getTexture(1), i);
+		switch (ter.getTileType(i))
+		{
+		case tGrass:	ter.bindTileTexture(text.getTexture(tGrass), i);
+			break;
+		case tHills:	ter.bindTileTexture(text.getTexture(tHills), i);
+			break;
+		case tTown:		ter.bindTileTexture(text.getTexture(tTown), i);
+			break;
+		case tWater:	ter.bindTileTexture(text.getTexture(tWater), i);
+			break;
+		}			
 	}
 
 
@@ -57,24 +72,52 @@ int main(int argc, char **argv)
 		}
 	}
 	
+	SDL_Rect a;
+	a.x = 0.0f;
+	a.y = 0.0f;
 	while (!quit)
 	{
+		// DT
+		unsigned int current = SDL_GetTicks();
+		float dt = (float)(current - last) / 1000.0f;
+		last = current;
+
 		quit = in->updateInput();
 
+		// camera movement
+		if(in->getForwards())
+			a.y -= dt * 1000.0f;
+		else
+			a.y = a.y;
+		if (in->getBackwards())
+			a.y += dt * 1000.0f;
+		else
+			a.y = a.y;
+		if (in->getRight())
+			a.x += dt * 1000.0f;
+		else
+			a.x = a.x;
+		if (in->getLeft())
+			a.x -= dt * 1000.0f;
+		else
+			a.x = a.x;
+
 		//Render
-		SDL_SetRenderDrawColor(window->getRenderer(), 0x01, 0xF0, 0xEE, 0xFF);
+		SDL_SetRenderDrawColor(window->getRenderer(), 0x01, 0x01, 0x01, 0xFF);
 		SDL_RenderClear(window->getRenderer());
 
+		// draw
 		ter.draw();
-		//SDL_QueryTexture(text.getTexture(1), NULL, NULL, &b.x, &b.y);
+		// actual draw
 		for (int i = 0; i < ter.sizeOf(); ++i)
 		{
-			SDL_Rect b = ter.getRect(i);
+			SDL_Rect  b = ter.getRect(i);
+			b.x -= a.x;
+			b.y -= a.y;
       b.w = 150;
 			b.h = 150;
-			SDL_RenderCopy(window->getRenderer(), text.getTexture(1), NULL, &b);
+			SDL_RenderCopy(window->getRenderer(), text.getTexture(ter.getTileType(i)), NULL, &b);
 		}
-		
 
 		SDL_RenderPresent(window->getRenderer());
 		
