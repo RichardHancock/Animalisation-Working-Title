@@ -29,7 +29,7 @@ void Textures::LoadPNG(std::string filename, SDL_Renderer* rend, int index)
 		// create a texture from the surface
 		m_texturesArray[index] = SDL_CreateTextureFromSurface(rend, texture);
 	
-		// free texutre
+		// free texture
 		SDL_FreeSurface(texture);
 	}
 }

@@ -1,13 +1,17 @@
 #include <iostream>
 #include "Window.h"
 #include "Textures.h"
-
+#include "inputManager.h"
+#include "Terrain.h"
+#include "menu.h"
 //Constants
 const int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
 
 //Globals
 Window* window = new Window("Animalisation", WIN_WIDTH, WIN_HEIGHT);
+InputManager* in = new InputManager();
+Menu* menu = new Menu(window);
 
 //Function Prototypes
 int main();
@@ -21,35 +25,56 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	Textures text(1);
-	text.LoadPNG("images/test.png", window->getRenderer(), 0);
+	terrain ter(5, 5);
 
-	SDL_Rect b;
-	b.x = 200;
-	b.y = 200;
-	b.w = 200;
-	b.h = 200;
+	Textures text(2);
+	text.LoadPNG("images/test.png", window->getRenderer(), 0);
+	text.LoadPNG("images/HexT.png", window->getRenderer(), 1);
+
+	for (int i = 0; i < ter.sizeOf(); ++i)
+	{
+		ter.bindTileTexture(text.getTexture(1), i);
+	}
+
+
 
 	bool quit = false;
-	SDL_Event e;
+
+	/*menu*/
+	bool menuCheck = true;
+	while (menuCheck)
+	{
+		quit = in->updateInput();
+		menuCheck = menu->updateMenu(in->getForwards(), in->getBackwards(), in->getEnter());
+		menu->displayMenu(window);
+		if (!menuCheck && menu->getHighlight() == 1)
+		{
+			quit = true;
+		}
+		if (quit == true)
+		{
+			menuCheck = false;
+		}
+	}
+	
 	while (!quit)
 	{
-		while (SDL_PollEvent(&e))
-		{
-			//Escape Key
-			if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-			{
-				quit = true;
-			}
-		}
-
+		quit = in->updateInput();
 
 		//Render
 		SDL_SetRenderDrawColor(window->getRenderer(), 0x01, 0xF0, 0xEE, 0xFF);
 		SDL_RenderClear(window->getRenderer());
 
-		SDL_QueryTexture(text.getTexture(0), NULL, NULL, &b.x, &b.y);
-		SDL_RenderCopy(window->getRenderer(), text.getTexture(0), NULL, &b);
+		ter.draw();
+		//SDL_QueryTexture(text.getTexture(1), NULL, NULL, &b.x, &b.y);
+		for (int i = 0; i < ter.sizeOf(); ++i)
+		{
+			SDL_Rect b = ter.getRect(i);
+      b.w = 150;
+			b.h = 150;
+			SDL_RenderCopy(window->getRenderer(), text.getTexture(1), NULL, &b);
+		}
+		
 
 		SDL_RenderPresent(window->getRenderer());
 		
