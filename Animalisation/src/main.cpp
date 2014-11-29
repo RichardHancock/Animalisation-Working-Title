@@ -1,8 +1,12 @@
 #include <iostream>
 #include "Window.h"
 #include "menu.h"
+#include "inputManager.h"
+#include "Terrain.h"
+#include "Textures.h"
 
-//Constantsconst int WIN_WIDTH = 640;
+//Constants
+const int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
 
 //Globals

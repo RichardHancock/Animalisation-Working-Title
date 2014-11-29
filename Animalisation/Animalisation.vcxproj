@@ -27,10 +27,10 @@
     <ClInclude Include="include\inputManager.h" />
     <ClInclude Include="include\menu.h" />
     <ClInclude Include="include\menuKey.h" />
-    <ClInclude Include="include\Terrain.h" />    <ClInclude Include="include\Textures.h" />
+    <ClInclude Include="include\Terrain.h" />
+    <ClInclude Include="include\Textures.h" />
     <ClInclude Include="include\Vec2.h" />
     <ClInclude Include="include\Window.h" />
-    <ClInclude Include="src\Terrain.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{993FF1D6-344B-4F1B-A6AC-6AFBD553CB92}</ProjectGuid>
