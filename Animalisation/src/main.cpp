@@ -1,14 +1,15 @@
 #include <iostream>
 #include "Window.h"
 #include "Textures.h"
+#include "inputManager.h"
 #include "Terrain.h"
-
 //Constants
 const int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
 
 //Globals
 Window* window = new Window("Animalisation", WIN_WIDTH, WIN_HEIGHT);
+InputManager* in = new InputManager();
 
 //Function Prototypes
 int main();
@@ -39,14 +40,7 @@ int main(int argc, char **argv)
 	SDL_Event e;
 	while (!quit)
 	{
-		while (SDL_PollEvent(&e))
-		{
-			//Escape Key
-			if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-			{
-				quit = true;
-			}
-		}
+		quit = in->updateInput();
 
 
 		//Render
