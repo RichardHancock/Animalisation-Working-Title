@@ -11,11 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AI.cpp" />
+    <ClCompile Include="src\AI.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AI.h" />
+    <ClInclude Include="include\AI.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{993FF1D6-344B-4F1B-A6AC-6AFBD553CB92}</ProjectGuid>
