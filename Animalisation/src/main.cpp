@@ -1,13 +1,14 @@
 #include <iostream>
 #include "Window.h"
-#include "Textures.h"#include "inputManager.h"
-#include "Terrain.h"//Constants
-const int WIN_WIDTH = 640;
+#include "menu.h"
+
+//Constantsconst int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
 
 //Globals
 Window* window = new Window("Animalisation", WIN_WIDTH, WIN_HEIGHT);
 InputManager* in = new InputManager();
+Menu* menu = new Menu(window);
 
 //Function Prototypes
 int main();
@@ -49,7 +50,24 @@ int main(int argc, char **argv)
 
 
 	bool quit = false;
-	SDL_Event e;
+
+	/*menu*/
+	bool menuCheck = true;
+	while (menuCheck)
+	{
+		quit = in->updateInput();
+		menuCheck = menu->updateMenu(in->getForwards(), in->getBackwards(), in->getEnter());
+		menu->displayMenu(window);
+		if (!menuCheck && menu->getHighlight() == 1)
+		{
+			quit = true;
+		}
+		if (quit == true)
+		{
+			menuCheck = false;
+		}
+	}
+	
 	SDL_Rect a;
 	a.x = 0.0f;
 	a.y = 0.0f;
