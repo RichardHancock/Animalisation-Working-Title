@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AI.h" />
+    <ClInclude Include="include\Building.h" />
     <ClInclude Include="include\Character_Races.h" />
     <ClInclude Include="include\inputManager.h" />
     <ClInclude Include="include\menu.h" />

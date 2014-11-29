@@ -71,5 +71,8 @@
     <ClInclude Include="include\menuKey.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Building.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
