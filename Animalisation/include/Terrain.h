@@ -1,7 +1,7 @@
 #pragma once
-#include <vector>
-#include <cstdint>
-#include <cstdlib>
+#include "Textures.h"
+#include "Window.h"
+#include "Vec2.h"
 
 // the type of terrain each tile is
 enum terrainType
@@ -51,7 +51,7 @@ public:
 	///\brief set center of the tile
 	///\prama float x
 	///\prama float y
-	inline void tileCenter(float& x, float& y)
+	inline void tileCenter(float x, float y)
 	{
 		m_tileCenter.x = x;
 		m_tileCenter.y = y;

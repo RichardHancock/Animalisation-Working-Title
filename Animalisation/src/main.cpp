@@ -22,15 +22,29 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	terrain ter(5, 5);
+	// create world
+	terrain ter(10, 10);
+	// load textures
+	Textures text(4);
+	text.LoadPNG("images/grass.png", window->getRenderer(), 0);
+	text.LoadPNG("images/town.png", window->getRenderer(), 1);
+	text.LoadPNG("images/hill.png", window->getRenderer(), 2);
+	text.LoadPNG("images/water.png", window->getRenderer(), 3);
 
-	Textures text(2);
-	text.LoadPNG("images/test.png", window->getRenderer(), 0);
-	text.LoadPNG("images/HexT.png", window->getRenderer(), 1);
-
+	// bind textures
 	for (int i = 0; i < ter.sizeOf(); ++i)
 	{
-		ter.bindTileTexture(text.getTexture(1), i);
+		switch (ter.getTileType(i))
+		{
+		case tGrass:	ter.bindTileTexture(text.getTexture(tGrass), i);
+			break;
+		case tHills:	ter.bindTileTexture(text.getTexture(tHills), i);
+			break;
+		case tTown:		ter.bindTileTexture(text.getTexture(tTown), i);
+			break;
+		case tWater:	ter.bindTileTexture(text.getTexture(tWater), i);
+			break;
+		}			
 	}
 
 
@@ -50,19 +64,19 @@ int main(int argc, char **argv)
 
 
 		//Render
-		SDL_SetRenderDrawColor(window->getRenderer(), 0x01, 0xF0, 0xEE, 0xFF);
+		SDL_SetRenderDrawColor(window->getRenderer(), 0x01, 0x01, 0x01, 0xFF);
 		SDL_RenderClear(window->getRenderer());
 
+		// draw
 		ter.draw();
-		//SDL_QueryTexture(text.getTexture(1), NULL, NULL, &b.x, &b.y);
+		// actual draw
 		for (int i = 0; i < ter.sizeOf(); ++i)
 		{
 			SDL_Rect b = ter.getRect(i);
       b.w = 150;
 			b.h = 150;
-			SDL_RenderCopy(window->getRenderer(), text.getTexture(1), NULL, &b);
+			SDL_RenderCopy(window->getRenderer(), text.getTexture(ter.getTileType(i)), NULL, &b);
 		}
-		
 
 		SDL_RenderPresent(window->getRenderer());
 		

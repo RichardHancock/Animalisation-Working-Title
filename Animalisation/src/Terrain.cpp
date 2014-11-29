@@ -18,6 +18,9 @@ terrain::terrain(int width, int height)
 	m_height = height;
 	m_width = width;
 
+	// random seed
+	srand(time(NULL));
+
 	// resize vector to world size
 	m_tiles.resize(m_height * m_width);
 	m_rect.resize(m_height * m_width);
