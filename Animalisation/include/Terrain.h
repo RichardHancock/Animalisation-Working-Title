@@ -1,7 +1,7 @@
 #pragma once
-#include <vector>
-#include <cstdint>
-#include <cstdlib>
+#include "Textures.h"
+#include "Window.h"
+#include "Vec2.h"
 
 // the type of terrain each tile is
 enum terrainType
@@ -20,6 +20,9 @@ public:
 	tile();
 	///\brief Destr
 	~tile();
+
+
+	void draw();
 
 	///\brief set the texture for the tile
 	///\prama SDL_Texture* texture
@@ -51,7 +54,7 @@ public:
 	///\brief set center of the tile
 	///\prama float x
 	///\prama float y
-	inline void tileCenter(float& x, float& y)
+	inline void tileCenter(float x, float y)
 	{
 		m_tileCenter.x = x;
 		m_tileCenter.y = y;
@@ -140,8 +143,22 @@ public:
 		m_tiles[tileIndex].type(terrainType);
 	}
 
+	inline void bindTileTexture(SDL_Texture* tileTexture, int index)
+	{
+		m_tiles[index].bindTexture(tileTexture);
+	}
+
+	inline SDL_Rect getRect(int index)
+	{
+		return m_rect[index];
+	}
+	inline int sizeOf()
+	{
+		return m_tiles.size();
+	}
 private:
 	int m_height; ///< world height
 	int m_width; ///< world width
 	std::vector<tile> m_tiles; ///< vector of tiles
+	std::vector<SDL_Rect> m_rect; ///< texture rect
 };
