@@ -1,9 +1,14 @@
 #include <iostream>
 #include "Window.h"
 #include "Textures.h"
+<<<<<<< HEAD
 #include "Terrain.h"
 #include "inputManager.h"
 
+=======
+#include "inputManager.h"
+#include "Terrain.h"
+>>>>>>> 9e98efb6b7a850aa09e1c430bcfce99d62b194f2
 //Constants
 const int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
