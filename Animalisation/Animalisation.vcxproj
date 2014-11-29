@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="src\AI.cpp" />
     <ClCompile Include="src\Character_Races.cpp" />
+    <ClCompile Include="src\fileLoader.cpp" />
     <ClCompile Include="src\imageManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\menu.cpp" />
@@ -24,6 +25,7 @@
   <ItemGroup>
     <ClInclude Include="include\AI.h" />
     <ClInclude Include="include\Character_Races.h" />
+    <ClInclude Include="include\fileLoader.h" />
     <ClInclude Include="include\inputManager.h" />
     <ClInclude Include="include\menu.h" />
     <ClInclude Include="include\menuKey.h" />
