@@ -4,6 +4,11 @@
 
 #pragma once
 
+/** 
+@brief Creates a Window and Renderer
+
+Handles all the initializations for SDL and plug-ins
+*/
 class Window
 {
 public:
@@ -18,7 +23,16 @@ public:
 	
 	~Window();
 
+	/** 
+	@brief Returns the renderer
+	@returns SDL_Renderer* - SDL render object
+	*/
 	SDL_Renderer* getRenderer();
+
+	/**
+	@brief Returns the window
+	@returns SDL_Window* - SDL window object
+	*/
 	SDL_Window*	getWindow();
 
 private: 
