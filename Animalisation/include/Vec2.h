@@ -1,19 +1,33 @@
 #pragma once
 #include <iostream>
 
+/** 
+Struct that represents a Vector2
+*/
 struct Vec2
 {
+	/// X position
 	float x;
+	/// Y position
 	float y;
-	Vec2()
-	{
 
-	}
+	/** 
+	Creates a Vec2 with no initialization
+	*/
+	Vec2() { }
+
+	/**
+	Creates a Vec2 with full initialization
+
+	@param float - X position
+	@param float - Y position
+	*/
 	Vec2(float initX, float initY)
 	{
 		x = initX;
 		y = initY;
 	}
+
 
 	//Operator Overloading
 
@@ -62,6 +76,7 @@ inline Vec2 operator * (Vec2 a, Vec2 b)
 }
 inline std::ostream& operator << (std::ostream& os, const Vec2& a)
 {
+	// if a Vec2 is cout'd it will form this structure: Vec2(x,y) 
 	os << "Vec2(" << a.x << "," << a.y << ") ";
 	return os;
 }
